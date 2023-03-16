@@ -17,26 +17,24 @@ public class Task_29 {
         map.put('[', ']');
 
         for (char c : str.toCharArray()){
-            if (c == '(' || c == '['){
+            if (map.containsKey(c)){
                 stack.add(c);
             }
-            if (c == ')'){
-                if (!stack.isEmpty() && stack.peek() == '(')
-                    stack.pop();
-                else
-                    return false;
-            }
-            if (c == ']'){
-                if (!stack.isEmpty() && stack.peek() == '[')
-                    stack.pop();
-                else
-                    return false;
+
+            for (Map.Entry<Character, Character> entry : map.entrySet()){
+                if (c == entry.getValue()){
+                    if (!stack.isEmpty() && stack.peek() == entry.getKey())
+                        stack.pop();
+                    else
+                        return false;
+                }
             }
         }
         return stack.isEmpty();
     }
     public static void main(String[] args) {
-        System.out.println(isRight("a+((d*(3)))"));
+        System.out.println(isRight("[6+(3*3)]"));
     }
     
 }
+
